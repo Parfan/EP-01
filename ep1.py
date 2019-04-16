@@ -1,85 +1,112 @@
 # EP 2019-1: Escape Insper
 #
 # Alunos: 
-# - aluno A: Felipe Lacombe, felipeml4@al.insper.edu.br
+# - aluno A: Felipe Lacombe,  felipeml4@al.insper.edu.br
 # - aluno B: Willian Asanuma, williankal@al.insper.edu.br
-# - aluno C: Gabriel Parfan, gabrielpg1@al.insper.edu.br
+# - aluno C: Gabriel Parfan,  gabrielpg1@al.insper.edu.br
 
 def carregar_cenarios():
     cenarios = {
-        "inicio": {
+        "saguao": {
             "titulo": "Saguao do perigo",
             "descricao": "Voce esta no saguao de entrada do insper",
             "opcoes": {
-                "andar professor": "Tomar o elevador para o andar do professor",
-                "biblioteca": "Ir para a biblioteca"
+                "catraca": "Passar pela catraca",
+                "biblioteca": "Ir para a biblioteca",
+                "desistir": "Desistir e ir embora"
             }
         },
-        "andar professor": {
-            "titulo": "Andar do desespero",
-            "descricao": "Voce chegou ao andar da sala do seu professor",
+        "catraca": {
+            "titulo": "O portao giratorio",
+            "descricao": "Voce esta nas catracas do Saguao do perigo",
             "opcoes": {
-                "inicio": "Tomar o elevador para o saguao de entrada",
-                "professor": "Falar com o professor"
+                "saguao": "Voltar ao Saguao do perigo",
+                "elevador": "Ir para o transportador magico",
+                "escada": "Ir para a escadaria do infinito"
             }
         },
-        "professor": {
-            "titulo": "O monstro do Python",
-            "descricao": "Voce foi pedir para o professor adiar o EP. "
-                         "O professor revelou que é um monstro disfarçado "
-                         "e devorou sua alma.",
-            "opcoes": {}
+        "escada": {
+            "titulo": "Escadaria do infinito",
+            "descricao": "Voce subiu a Escadaria do infinito e agora está no 2o andar",
+            "opcoes": {
+                "catraca": "Voltar para o portao giratorio",
+                "corredor andar 2": "Ir para o corredor do segundo andar"
+            }
         },
         "biblioteca": {
-            "titulo": "Caverna da tranquilidade",
-            "descricao": "Voce esta na biblioteca",
+            "titulo": "Santuario da sabedoria",
+            "descricao": "Voce esta na biblioteca do insper",
             "opcoes": {
-                "inicio": "Voltar para o saguao de entrada"
+                "saguao": "Voltar para o Saguao do perigo"
+            }
+        },
+        "corredor andar 2": {
+            "titulo": "Corredor do segundo andar",
+            "descricao": "Voce esta caminhando pelo corredor do segundo andar",
+            "opcoes": {
+                "catraca": "Descer as escadas para o portao giratorio"
+            }
+        },
+        "elevador": {
+            "titulo": "Transportador magico",
+            "descricao": "Voce esta na biblioteca do insper",
+            "opcoes": {
+                "saguao": "Voltar para o Saguao do perigo"
+            }
+        },
+        "explorar biblioteca": {
+            "titulo": "Escadaria do infinito",
+            "descricao": "Voce subiu a Escadaria do infinito e agora está no 2o andar",
+            "opcoes": {
+                "catraca": "Voltar para o portao giratorio",
+                "corredor andar 2": "Ir para o corredor do segundo andar"
             }
         }
         
     }
-    nome_cenario_atual = "inicio"
+    nome_cenario_atual = "saguao"
     return cenarios, nome_cenario_atual
 
 def carregar_monstros():
     lista_habilidades = [1,2]
     lista_monstros = [1,2,3,4]
     monstros = {
+        lista_monstros[0]: {
+            "Nome": "Seguranca",
+            "Pontos de vida": 12,
+            "Habilidades": {
+                lista_habilidades[0] : 1,
+                lista_habilidades[1] : 2
+            }
+        },
         lista_monstros[1]: {
+            "Nome": "Faxineira ninja",
+            "Pontos de vida": 8,
+            "Habilidades": {
+                lista_habilidades[0] : 2,
+                lista_habilidades[1] : 3
+            }
+        },
+        lista_monstros[2]: {
+            "Nome": "Professor",
+            "Pontos de vida": 10,
+            "Habilidades": {
+                lista_habilidades[0] : 1,
+                lista_habilidades[1] : 2
+            }
+        },
+        lista_monstros[3]: {
             "Nome": "Seguranca",
             "Pontos de vida": 10,
             "Habilidades": {
-                lista_habilidades[1] : 3
-                lista_habilidades[2]: 5
-            }
-        },
-        "andar professor": {
-            "titulo": "Andar do desespero",
-            "descricao": "Voce chegou ao andar da sala do seu professor",
-            "opcoes": {
-                "inicio": "Tomar o elevador para o saguao de entrada",
-                "professor": "Falar com o professor"
-            }
-        },
-        "professor": {
-            "titulo": "O monstro do Python",
-            "descricao": "Voce foi pedir para o professor adiar o EP. "
-                         "O professor revelou que é um monstro disfarçado "
-                         "e devorou sua alma.",
-            "opcoes": {}
-        },
-        "biblioteca": {
-            "titulo": "Caverna da tranquilidade",
-            "descricao": "Voce esta na biblioteca",
-            "opcoes": {
-                "inicio": "Voltar para o saguao de entrada"
+                lista_habilidades[0] : 1,
+                lista_habilidades[1] : 2
             }
         }
         
     }
-    nome_cenario_atual = "inicio"
-    return cenarios, nome_cenario_atual
+    enfrentando_monstro = lista_monstros[1]
+    return monstros, enfrentando_monstro
 
 def main():
     print("Na hora do sufoco!")
@@ -97,6 +124,7 @@ def main():
     print()
 
     cenarios, nome_cenario_atual = carregar_cenarios()
+    monstros, enfrentando_monstro = carregar_monstros()
 
     game_over = False
     while not game_over:
@@ -106,6 +134,7 @@ def main():
         print(cenario_atual["descricao"])
         
         opcoes = cenario_atual['opcoes']
+
         if len(opcoes) == 0:
             print("Acabaram-se suas opções! Mwo mwo mwooooo...")
             game_over = True
@@ -114,23 +143,30 @@ def main():
                 print(f"* '{k}' ({v})")
             escolha = input("Escolha a sua opção: ")
             print()
-            while escolha not in opcoes:
-                if escolha == 'opcao' or escolha == 'opcoes':
-                    for k, v in opcoes.items():
-                        print(f"* '{k}' ({v})")
-                    escolha = input("Escolha a sua opção: ")
-                    print()
-                else:
-                    print("Não conheço esta opção... :/")
-                    escolha = input("Escolha a sua opção: ")
-                    print()
-            if escolha in opcoes:
-                nome_cenario_atual = escolha
+            if escolha == 'desistir':
+                game_over = True
             else:
-                if escolha not in opcoes:
-                    game_over = True
+                while escolha not in opcoes:
+                    if escolha == 'opcao' or escolha == 'opcoes':
+                        for k, v in opcoes.items():
+                            print(f"* '{k}' ({v})")
+                        escolha = input("Escolha a sua opção: ")
+                        print()
+                    elif escolha == '':
+                        escolha = input("Oops, acho que você se esqueceu de digitar um comando: ")
+                        print()
+                    else:
+                        print("Não conheço esta opção... :/")
+                        escolha = input("Escolha a sua opção: ")
+                        print()
+                if escolha in opcoes:
+                    nome_cenario_atual = escolha
+                    #game_over = True
 
-    print("Você morreu!")
+    if escolha == 'desistir':
+        print("Você desistiu de tentar o adiamento, foi embora e pegou DP!")
+    else:
+        print("Você morreu!")
 
 
 # Programa principal.
