@@ -42,6 +42,44 @@ def carregar_cenarios():
     nome_cenario_atual = "inicio"
     return cenarios, nome_cenario_atual
 
+def carregar_monstros():
+    lista_habilidades = [1,2]
+    lista_monstros = [1,2,3,4]
+    monstros = {
+        lista_monstros[1]: {
+            "Nome": "Seguranca",
+            "Pontos de vida": 10,
+            "Habilidades": {
+                lista_habilidades[1] : 3
+                lista_habilidades[2]: 5
+            }
+        },
+        "andar professor": {
+            "titulo": "Andar do desespero",
+            "descricao": "Voce chegou ao andar da sala do seu professor",
+            "opcoes": {
+                "inicio": "Tomar o elevador para o saguao de entrada",
+                "professor": "Falar com o professor"
+            }
+        },
+        "professor": {
+            "titulo": "O monstro do Python",
+            "descricao": "Voce foi pedir para o professor adiar o EP. "
+                         "O professor revelou que é um monstro disfarçado "
+                         "e devorou sua alma.",
+            "opcoes": {}
+        },
+        "biblioteca": {
+            "titulo": "Caverna da tranquilidade",
+            "descricao": "Voce esta na biblioteca",
+            "opcoes": {
+                "inicio": "Voltar para o saguao de entrada"
+            }
+        }
+        
+    }
+    nome_cenario_atual = "inicio"
+    return cenarios, nome_cenario_atual
 
 def main():
     print("Na hora do sufoco!")
