@@ -66,6 +66,47 @@ def carregar_cenarios():
     nome_cenario_atual = "saguao"
     return cenarios, nome_cenario_atual
 
+def carregar_inventario():
+    lista_habilidades = [1,2]
+    lista_monstros = [1,2,3,4]
+    monstros = {
+        lista_monstros[0]: {
+            "Nome": "Seguranca",
+            "Pontos de vida": 12,
+            "Habilidades": {
+                lista_habilidades[0] : 1,
+                lista_habilidades[1] : 2
+            }
+        },
+        lista_monstros[1]: {
+            "Nome": "Faxineira ninja",
+            "Pontos de vida": 8,
+            "Habilidades": {
+                lista_habilidades[0] : 2,
+                lista_habilidades[1] : 3
+            }
+        },
+        lista_monstros[2]: {
+            "Nome": "Professor",
+            "Pontos de vida": 10,
+            "Habilidades": {
+                lista_habilidades[0] : 1,
+                lista_habilidades[1] : 2
+            }
+        },
+        lista_monstros[3]: {
+            "Nome": "Coordenador",
+            "Pontos de vida": 10,
+            "Habilidades": {
+                lista_habilidades[0] : 1,
+                lista_habilidades[1] : 2
+            }
+        }
+        
+    }
+    enfrentando_monstro = lista_monstros[1]
+    return monstros, enfrentando_monstro
+
 def carregar_monstros():
     lista_habilidades = [1,2]
     lista_monstros = [1,2,3,4]
@@ -154,6 +195,12 @@ def main():
                     elif escolha == '':
                         escolha = input("Oops, acho que você se esqueceu de digitar um comando: ")
                         print()
+                    if escolha == "biblioteca":
+                        dado = input("Você achou um dado no chão, vc deseja testar a sua sorte? (y,n):")
+                        if dado == "y":
+                            print("A habilidade de teletransporte foi adicionada ao seu inventario")
+                        elif dado == "n":
+                            print ("Você perdeu a chance de equipar uma ferramente muito forte ao seu inventario")
                     else:
                         print("Não conheço esta opção... :/")
                         escolha = input("Escolha a sua opção: ")
@@ -161,10 +208,7 @@ def main():
                 if escolha in opcoes:
                     nome_cenario_atual = escolha
                     #game_over = True
-                    while escolha == "biblioteca":
-                        dado = input("Você achou um dado no chão, vc deseja testar a sua sorte? (y,n):")
-                        if dado() == "y":
-                            print("easterEGGG")
+                   
                             
         
 
