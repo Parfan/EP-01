@@ -4,7 +4,6 @@
 # - aluno A: Felipe Lacombe,  felipeml4@al.insper.edu.br
 # - aluno B: Willian Asanuma, williankal@al.insper.edu.br
 # - aluno C: Gabriel Parfan,  gabrielpg1@al.insper.edu.br
-
 def carregar_cenarios():
     cenarios = {
         "saguao": {
@@ -96,7 +95,7 @@ def carregar_monstros():
             }
         },
         lista_monstros[3]: {
-            "Nome": "Seguranca",
+            "Nome": "Coordenador",
             "Pontos de vida": 10,
             "Habilidades": {
                 lista_habilidades[0] : 1,
@@ -130,7 +129,7 @@ def main():
     while not game_over:
         cenario_atual = cenarios[nome_cenario_atual]
         print(cenario_atual["titulo"])
-        print("------------------")
+        print("-"*len(cenario_atual["titulo"]))
         print(cenario_atual["descricao"])
         
         opcoes = cenario_atual['opcoes']
@@ -162,6 +161,12 @@ def main():
                 if escolha in opcoes:
                     nome_cenario_atual = escolha
                     #game_over = True
+                    while escolha == "biblioteca":
+                        dado = input("Você achou um dado no chão, vc deseja testar a sua sorte? (y,n):")
+                        if dado() == "y":
+                            print("easterEGGG")
+                            
+        
 
     if escolha == 'desistir':
         print("Você desistiu de tentar o adiamento, foi embora e pegou DP!")
