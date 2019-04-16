@@ -175,7 +175,7 @@ def main():
     else:
         print("Você morreu!")
 
-
+print ("banana frita")
 # Programa principal.
 if __name__ == "__main__":
     main()
