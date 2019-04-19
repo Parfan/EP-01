@@ -4,75 +4,21 @@
 # - aluno A: Felipe Lacombe,  felipeml4@al.insper.edu.br
 # - aluno B: Willian Asanuma, williankal@al.insper.edu.br
 # - aluno C: Gabriel Parfan,  gabrielpg1@al.insper.edu.br
+
+import json
+from random import randint
+
 def carregar_cenarios():
-    cenarios = {
-        "saguao": {
-            "titulo": "Saguao do perigo",
-            "descricao": "Voce esta no saguao de entrada do insper",
-            "opcoes": {
-                "catraca": "Passar pela catraca",
-                "desistir": "Desistir e ir embora",
-                "achados e perdidos": "Ir para os achados e perdidos"
-            }
-        },
-        "catraca": {
-            "titulo": "O portao giratorio",
-            "descricao": "Voce esta nas catracas do Saguao do perigo",
-            "opcoes": {
-                "saguao": "Voltar ao Saguao do perigo",
-                "elevador": "Ir para o transportador magico",
-                "escada": "Ir para a escadaria do infinito",
-                "biblioteca": "Ir para a biblioteca"
-            }
-        },
-        "escada": {
-            "titulo": "Escadaria do infinito",
-            "descricao": "Voce subiu a Escadaria do infinito e agora está no 2o andar",
-            "opcoes": {
-                "catraca": "Voltar para o portao giratorio",
-                "corredor andar 2": "Ir para o corredor do segundo andar"
-            }
-        },
-        "biblioteca": {
-            "titulo": "Santuario da sabedoria",
-            "descricao": "Voce esta na biblioteca do insper",
-            "opcoes": {
-                "saguao": "Voltar para o Saguao do perigo"
-            }
-        },
-        "corredor andar 2": {
-            "titulo": "Corredor do segundo andar",
-            "descricao": "Voce esta caminhando pelo corredor do segundo andar",
-            "opcoes": {
-                "catraca": "Descer as escadas para o portao giratorio"
-            }
-        },
-        "elevador": {
-            "titulo": "Transportador magico",
-            "descricao": "Voce esta na biblioteca do insper",
-            "opcoes": {
-                "saguao": "Voltar para o Saguao do perigo"
-            }
-        },
-        "multiinsper": {
-            "titulo": "Apoio",
-            "descricao": "Voce subiu a Escadaria do infinito e agora está no 2o andar",
-            "opcoes": {
-                "catraca": "Voltar para o portao giratorio",
-                "corredor andar 2": "Ir para o corredor do segundo andar"
-            }
-        },
-        "achados e perdidos": {
-            "titulo": "Apoio",
-            "descricao": "Voce subiu a Escadaria do infinito e agora está no 2o andar",
-            "opcoes": {
-                "catraca": "Voltar para o portao giratorio",
-                "corredor andar 2": "Ir para o corredor do segundo andar"
-            }
-        }
-    }
+    with open('arquivo_cenarios.py','r') as arquivo_cenarios:
+        arquivo1 = arquivo_cenarios.read()
+    cenarios = json.loads(arquivo1)
     nome_cenario_atual = "saguao"
     return cenarios, nome_cenario_atual
+
+def randomize():
+    random1a3 = randint(1,3)
+    random1a6 = randint(1,6)
+    return random1a3, random1a6
 
 def carregar_monstros():
     lista_habilidades = [1,2]
@@ -168,8 +114,11 @@ def main():
 
     cenarios, nome_cenario_atual = carregar_cenarios()
     monstros, enfrentando_monstro = carregar_monstros()
-
+    random1a3, random1a6 = randomize()
+    
     game_over = False
+    i = 0
+    
     while not game_over:
         cenario_atual = cenarios[nome_cenario_atual]
         print(cenario_atual["titulo"])
@@ -197,22 +146,26 @@ def main():
                         print()
                     elif escolha == '':
                         escolha = input("Oops, acho que você se esqueceu de digitar um comando: ")
+                        if escolha == 'desistir':
+                            game_over = True
                         print()
                     else:
                         print("Não conheço esta opção... :/")
                         escolha = input("Escolha a sua opção: ")
+                        if escolha == 'desistir':
+                            game_over = True
                         print()
                 if escolha in opcoes:
                     nome_cenario_atual = escolha
                     #game_over = True
-                if escolha == "biblioteca":
-                        dado = input("Você achou um dado no chão, vc deseja testar a sua sorte? (y,n):")
-                        if dado == "y":
-                            print("A habilidade de teletransporte foi adicionada ao seu inventario")
-                        elif dado == "n":
-                            print ("Você perdeu a chance de equipar uma ferramente muito forte ao seu inventario")   
-                            
-        
+                if nome_cenario_atual == "biblioteca":
+                    print(random1a3)
+                    print(i)
+                    if random1a3 == 1:
+                        while i < 3:
+                            cenarios["biblioteca"]["descricao"] = "Você entra Santuario da sabedoria e derrepente se depara com um objeto cúbico peculiar..."
+                            cenarios["biblioteca"]["opcoes"] = {"dado misterioso": "Pegar dado misterioso no chao"}
+                            i+=1
 
     if escolha == 'desistir':
         print("Você desistiu de tentar o adiamento, foi embora e pegou DP!")
