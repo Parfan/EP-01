@@ -15,42 +15,70 @@
         "opcoes": {
             "corredor 1 andar": "Ir para o corredor do primeiro andar",
             "auditorio": "Ir para o transportador magico",
-            "escada": "Ir para a escadaria do infinito"
+            "escada": "Ir para a escadaria do infinito",
+            "saguao": "Voltar para o saguao",
+            "caixa eletronico 1 andar": "Checar conta bancaria"
         }
     },
     "corredor 1 andar": {
         "titulo": "Corredor do primeiro andar",
         "descricao": "Voce esta no corredor do primeiro andar",
         "opcoes": {
-            "elevador": "Ir para o elevador",
-            "biblioteca": "Ir para o transportador magico"
+            "teletransportador": "Ir para o teletransportador",
+            "biblioteca": "Ir para o transportador magico",
+            "caixa eletronico 1 andar": "Checar conta bancaria",
+            "escada 2 andar": "Subir as escadas para o segundo andar",
+            "saguao": "Voltar ao saguao"
         }
     },
-    "escada": {
-        "titulo": "Escadaria do infinito",
-        "descricao": "Voce subiu a Escadaria do infinito e agora esta no 2o andar",
+    "caixa eletronico 1 andar": {
+        "titulo": "Caixa eletronico",
+        "descricao": "Voce esta no caixa eletronico do primeiro andar",
         "opcoes": {
-            "catraca": "Ir para a escada",
-            "corredor 2 andar": "Ir para o corredor do segundo andar"
+            "checar saldo": "Ver quanto dinheiro tem em sua conta",
+            "sacar": "Sacar dinheiro",
+            "corredor 1 andar": "Ir para o corredor do primeiro andar",
+            "escada 2 andar": "Subir as escadas para o segundo andar",
+            "auditorio": "Ir para o auditorio"
+        }
+    },
+    "escada 1 andar": {
+        "titulo": "Escada do primeiro andar",
+        "descricao": "Voce chegou no primeiro andar",
+        "opcoes": {
+            "caixa eletronico 1 andar": "Checar conta bancaria",
+            "auditorio": "Ir para o auditorio",
+            "corredor 1 andar": "Ir para o corredor do primeiro andar",
+            "saguao": "Voltar ao saguao"
+        }
+    },
+    "auditorio": {
+        "titulo": "Auditorio",
+        "descricao": "Voce esta no auditorio",
+        "opcoes": {
+            "corredor 1 andar": "Ir para o corredor do primeiro andar",
+            "escada 2 andar": "Subir para o segundo andar",
+            "caixa eletronico 1 andar": "Checar conta bancaria"
         }
     },
     "biblioteca": {
         "titulo": "Santuario da sabedoria",
         "descricao": "Voce esta na biblioteca do insper",
         "opcoes": {
-            "corredor 1 andar": "Voltar para o corredor do primeiro andar"
+            "corredor 1 andar": "Voltar para o corredor do primeiro andar",
+            "sala de estudo": "Entrar em uma sala de estudo"
         }
     },
-    "corredor 2 andar": {
-        "titulo": "Corredor do segundo andar",
-        "descricao": "Voce esta caminhando pelo corredor do segundo andar",
+    "sala de estudo": {
+        "titulo": "Sala de estudo",
+        "descricao": "Voce esta na sala de estudo",
         "opcoes": {
-            "catraca": "Descer as escadas para o portao giratorio"
+            "biblioteca": "Voltar para a biblioteca"
         }
     },
-    "elevador": {
-        "titulo": "Transportador magico",
-        "descricao": "Voce entrou no Transportador magico",
+    "teletransportador": {
+        "titulo": "Teletransportador",
+        "descricao": "Voce entrou no teletransportador",
         "opcoes": {
             "corredor 1 andar": "Ir para o corredor do primeiro andar",
             "corredor 2 andar": "Ir para o corredor do segundo andar",
@@ -59,19 +87,18 @@
         }
     },
     "achados e perdidos": {
-        "titulo": "Apoio",
-        "descricao": "Voce subiu a Escadaria do infinito e agora esta no 2o andar",
+        "titulo": "Achados e perdidos",
+        "descricao": "Perdeu algo?",
         "opcoes": {
             "catraca": "Voltar para o portao giratorio",
-            "corredor andar 2": "Ir para o corredor do segundo andar"
+            "saguao": "Voltar ao saguao"
         }
     },
-    "dado misterioso": {
-        "titulo": "Dado magico",
-        "descricao": "Voce encontrou um dado magico de seis faces no chao, gostaria de apostar em um numero inteiro de 1 a 6 e testar a sua sorte?",
+    "estacionamento": {
+        "titulo": "Estacionamento",
+        "descricao": "Voce esta no estacionamento",
         "opcoes": {
-            "sim": "Quero testar a minha sorte!",
-            "nao": "Que dado magico o que! Essa coisa nem existe!"
+            "saguao": "Voltar ao saguao"
         }
     }
 }

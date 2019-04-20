@@ -9,16 +9,11 @@ import json
 from random import randint
 
 def carregar_cenarios():
-    with open('arquivo_cenarios.py','r') as arquivo_cenarios:
+    with open('arquivo_cenariostemp.py','r') as arquivo_cenarios:
         arquivo1 = arquivo_cenarios.read()
     cenarios = json.loads(arquivo1)
     nome_cenario_atual = "saguao"
     return cenarios, nome_cenario_atual
-
-def randomize():
-    random1a3 = randint(1,3)
-    random1a6 = randint(1,6)
-    return random1a3, random1a6
 
 def carregar_monstros():
     lista_habilidades = [1,2]
@@ -61,37 +56,6 @@ def carregar_monstros():
     enfrentando_monstro = lista_monstros[1]
     return monstros, enfrentando_monstro
 
-def itens():
-    item = {
-        "carteirinha": {
-            "titulo": "Saguao do perigo",
-            "descricao": "Voce esta no saguao de entrada do insper",
-            "opcoes": {
-                "catraca": "Passar pela catraca",
-                "biblioteca": "Ir para a biblioteca",
-                "desistir": "Desistir e ir embora"
-            }
-        },
-        "atestado": {
-            "titulo": "O portao giratorio",
-            "descricao": "Voce esta nas catracas do Saguao do perigo",
-            "opcoes": {
-                "saguao": "Voltar ao Saguao do perigo",
-                "elevador": "Ir para o transportador magico",
-                "escada": "Ir para a escadaria do infinito"
-            }
-        },
-        "faca": {
-            "titulo": "Apoio",
-            "descricao": "Voce subiu a Escadaria do infinito e agora está no 2o andar",
-            "opcoes": {
-                "catraca": "Voltar para o portao giratorio",
-                "corredor andar 2": "Ir para o corredor do segundo andar"
-            }
-        }    
-    }
-    return item
-
 def funcao_inventario(item):
     mochila=[]
     mochila.append(item)
@@ -111,19 +75,20 @@ def main():
     print("Digite 'opcao' ou 'opcoes' para ver os comandos disponíveis.")
     print("------------------------------------------------------------")
     print()
+    escolha = "saguao"
 
     cenarios, nome_cenario_atual = carregar_cenarios()
     monstros, enfrentando_monstro = carregar_monstros()
-    random1a3, random1a6 = randomize()
     
     game_over = False
     i = 0
     
-    while not game_over:
+    while not game_over and escolha != "desistir":
         cenario_atual = cenarios[nome_cenario_atual]
         print(cenario_atual["titulo"])
         print("-"*len(cenario_atual["titulo"]))
         print(cenario_atual["descricao"])
+        print("--- OPÇÕES ---")
         
         opcoes = cenario_atual['opcoes']
 
@@ -135,37 +100,23 @@ def main():
                 print(f"* '{k}' ({v})")
             escolha = input("Escolha a sua opção: ")
             print()
-            if escolha == 'desistir':
-                game_over = True
-            else:
-                while escolha not in opcoes:
-                    if escolha == 'opcao' or escolha == 'opcoes':
-                        for k, v in opcoes.items():
-                            print(f"* '{k}' ({v})")
-                        escolha = input("Escolha a sua opção: ")
-                        print()
-                    elif escolha == '':
-                        escolha = input("Oops, acho que você se esqueceu de digitar um comando: ")
-                        if escolha == 'desistir':
-                            game_over = True
-                        print()
-                    else:
-                        print("Não conheço esta opção... :/")
-                        escolha = input("Escolha a sua opção: ")
-                        if escolha == 'desistir':
-                            game_over = True
-                        print()
-                if escolha in opcoes:
-                    nome_cenario_atual = escolha
-                    #game_over = True
-                if nome_cenario_atual == "biblioteca":
-                    print(random1a3)
-                    print(i)
-                    if random1a3 == 1:
-                        while i < 3:
-                            cenarios["biblioteca"]["descricao"] = "Você entra Santuario da sabedoria e derrepente se depara com um objeto cúbico peculiar..."
-                            cenarios["biblioteca"]["opcoes"] = {"dado misterioso": "Pegar dado misterioso no chao"}
-                            i+=1
+            while escolha not in opcoes:
+                if escolha == 'opcao' or escolha == 'opcoes':
+                    for k, v in opcoes.items():
+                        print(f"* '{k}' ({v})")
+                    escolha = input("Escolha a sua opção: ")
+                    print()
+                else:
+                    escolha = input("Não conheço esta opção... :/\n\nEscolha a sua opção: ")
+            if escolha in opcoes:
+                nome_cenario_atual = escolha
+                #game_over = True
+            elif nome_cenario_atual == "biblioteca":
+                if randint(1,3) == 1:
+                    while i < 3:
+                        cenarios["biblioteca"]["descricao"] = "Você entra Santuario da sabedoria e derrepente se depara com um objeto cúbico peculiar..."
+                        cenarios["biblioteca"]["opcoes"] = {"dado misterioso": "Pegar dado misterioso no chao"}
+                        i+=1
 
     if escolha == 'desistir':
         print("Você desistiu de tentar o adiamento, foi embora e pegou DP!")
