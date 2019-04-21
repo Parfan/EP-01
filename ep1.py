@@ -6,6 +6,7 @@
 # - aluno C: Gabriel Parfan,  gabrielpg1@al.insper.edu.br
 
 import json
+from random import randint
 from colorama import *
 
 def carregar_cenarios():
@@ -15,14 +16,14 @@ def carregar_cenarios():
     nome_cenario_atual = "saguao"
     return cenarios, nome_cenario_atual
 
-def carregar_monstros():
+def carregar_monstros(i):
     lista_habilidades = [1,2]
     lista_monstros = [1,2,3,4]
     monstros = {
         lista_monstros[0]: {
             "Nome": "Seguranca",
             "Vida": 12,
-            "Dano": [2,3]
+            "Dano": [3,2]
         },
         lista_monstros[1]: {
             "Nome": "Faxineira ninja",
@@ -49,32 +50,35 @@ def carregar_monstros():
             }
         }
     }
-    return monstros
+    nome_inimigo = monstros[lista_monstros[i]]["Nome"]
+    vida_inimigo = monstros[lista_monstros[i]]["Vida"]
+    ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
+    return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
 '''def combate(enfrentando_monstro):
     vida_inimigo = enfrentando_monstro["Vida"]
     ataque_inimigo = enfrentando_monstro["Dano"]
     return vida_inimigo, ataque_inimigo'''
 
-def combate(i,vida,item):
-    vida_inimigo = monstros[lista_monstros[i]]["Vida"]
-    ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
-    print("Você entrou em combate com {0}!".format(monstros[lista_monstros[i]]["Nome"]))
+def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over):
+    print("Você entrou em combate com {0}!".format(nome_inimigo))
     print("Sua vida: {0}".format(vida))
     print(f"Vida do inimigo: {vida_inimigo}")
-    while vida > 0 or vida_inimigo > 0:
-        dano_inimigo = monstros[lista_monstros[i]]["Dano"][randint(0,1)]
+    while vida > 0 and vida_inimigo > 0:
+        dano_inimigo = ataque_inimigo[randint(0,1)]
         vida_inimigo-=item["punhos"]["dano"]
         print("Você bate no inimigo com {0} e deixa o inimigo com {1} de vida!".format(item["punhos"]["titulo"],vida_inimigo))
         if vida_inimigo <= 0:
             break
         vida-=dano_inimigo
-        print("{0} te bate e te deixa com {1} de vida".format(monstros[lista_monstros[i]]["Nome"],vida))
+        print("{0} te bate e te deixa com {1} de vida".format(nome_inimigo,vida))
     if vida_inimigo <= 0 and vida > 0:
-        print("Você venceu a luta!")
+        print()
+        print(Fore.GREEN + "Você venceu a luta!")
+        print(Fore.RESET)
     elif vida <= 0:
-        print("Você perdeu a luta!")
-    return vida, vida_inimigo
+        game_over = True
+    return vida, vida_inimigo, game_over
 
 def inventario():
     mochila = []
@@ -113,7 +117,7 @@ def main():
     print("------------------------------------------------------------")
 
     game_over = False
-    seguranca_allow = 1
+    seguranca_deny = 1
     vida = 20
     i = 0
     escolha = "saguao"
@@ -123,9 +127,8 @@ def main():
     print()
     
     cenarios, nome_cenario_atual = carregar_cenarios()
-    monstros = carregar_monstros()
+    monstros, nome_inimigo, vida_inimigo, ataque_inimigo = carregar_monstros(i)
     item = itens()
-    #vida, vida_inimigo = combate(i,vida,item)
     mochila = inventario()
     
     while not game_over and escolha != "desistir":
@@ -162,7 +165,7 @@ def main():
                     nome_cenario_atual = "saguao"
                 elif escolha == "achados e perdidos":
                     if "carteirinha" not in mochila:    
-                        print(Fore.GREEN + "Olá {0}, o segurança encontrou a sua carteirinha ontem no chão! Iremos devolvê-la para você, mas tome cuidado com o porteiro, ele parece estar meio irritado...".format(nome))
+                        print(Fore.GREEN + "Olá {0}, o segurança encontrou a sua carteirinha ontem no chão! Iremos devolvê-la para você, mas tome cuidado com o segurança, ele parece estar meio irritado...".format(nome))
                         print(Fore.RESET)
                         mochila.append("carteirinha")
                         nome_cenario_atual = "saguao"
@@ -170,21 +173,12 @@ def main():
                         print(Fore.GREEN + "Desculpe, não temos nada perdido em seu nome, {0}".format(nome))
                         print(Fore.RESET)
                         nome_cenario_atual = "saguao"
-                elif nome_cenario_atual == 'catraca' and seguranca_allow != 0:
+                elif nome_cenario_atual == "catraca" and seguranca_deny == 1:
                     print(Fore.RED + "Segurança: HAA! FINALMENTE ENCONTREI VOCÊ MOLEQUE, AGORA VOU TE DAR UMA LIÇÃO PARA NUNCA MAIS ME FAZER DE TROUXA CATANDO CARTEIRINHA DE GENTE DESCUIDADA!")
                     print(Fore.RESET)
-                    while seguranca_allow == 1:
-                        luta = True
-                        i = 0
-                        vida, vida_inimigo = combate(i,vida,item)
-                        if vida <= 0 or vida_inimigo <= 0:
-                            if vida <= 0:
-                                seguranca_allow = 0
-                                game_over = True
-                            elif vida_inimigo <= 0:
-                                seguranca_allow = 0
-                            
-                        
+                    i = 0
+                    vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over)
+                    seguranca_deny = 0
 
                         
     if escolha == 'desistir':
