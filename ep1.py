@@ -8,6 +8,7 @@
 import json
 from random import randint
 from colorama import *
+from time import sleep
 
 def carregar_cenarios():
     with open('arquivo_cenarios.py','r') as arquivo_cenarios:
@@ -68,6 +69,7 @@ def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over):
         dano_inimigo = ataque_inimigo[randint(0,1)]
         vida_inimigo-=item["punhos"]["dano"]
         print("Você bate no inimigo com {0} e deixa o inimigo com {1} de vida!".format(item["punhos"]["titulo"],vida_inimigo))
+        sleep(1)
         if vida_inimigo <= 0:
             break
         vida-=dano_inimigo
@@ -76,6 +78,7 @@ def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over):
         print()
         print(Fore.GREEN + "Você venceu a luta!")
         print(Fore.RESET)
+        sleep(3)
     elif vida <= 0:
         game_over = True
     return vida, vida_inimigo, game_over
@@ -165,18 +168,19 @@ def main():
                     nome_cenario_atual = "saguao"
                 elif escolha == "achados e perdidos":
                     if "carteirinha" not in mochila:    
-                        print(Fore.GREEN + "Olá {0}, o segurança encontrou a sua carteirinha ontem no chão! Iremos devolvê-la para você, mas tome cuidado com o segurança, ele parece estar meio irritado...".format(nome))
+                        print(Fore.CYAN + "Olá {0}, o segurança encontrou a sua carteirinha ontem no chão! Iremos devolvê-la para você, mas tome cuidado com o segurança, ele parece estar meio irritado...".format(nome))
                         print(Fore.RESET)
                         mochila.append("carteirinha")
                         nome_cenario_atual = "saguao"
                     else:
-                        print(Fore.GREEN + "Desculpe, não temos nada perdido em seu nome, {0}".format(nome))
+                        print(Fore.CYAN + "Desculpe, não temos nada perdido em seu nome, {0}".format(nome))
                         print(Fore.RESET)
                         nome_cenario_atual = "saguao"
                 elif nome_cenario_atual == "catraca" and seguranca_deny == 1:
                     print(Fore.RED + "Segurança: HAA! FINALMENTE ENCONTREI VOCÊ MOLEQUE, AGORA VOU TE DAR UMA LIÇÃO PARA NUNCA MAIS ME FAZER DE TROUXA CATANDO CARTEIRINHA DE GENTE DESCUIDADA!")
                     print(Fore.RESET)
                     i = 0
+                    sleep(5)
                     vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over)
                     seguranca_deny = 0
 
@@ -184,7 +188,7 @@ def main():
     if escolha == 'desistir':
         print("Você desistiu de tentar o adiamento, foi embora e pegou DP!")
     else:
-        print("Você morreu!")
+        print(Fore.RED + "Você morreu!")
   
 # Programa principal.
 if __name__ == "__main__":
