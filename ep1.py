@@ -6,7 +6,7 @@
 # - aluno C: Gabriel Parfan,  gabrielpg1@al.insper.edu.br
 
 import json
-from random import randint
+from colorama import *
 
 def carregar_cenarios():
     with open('arquivo_cenariostemp.py','r') as arquivo_cenarios:
@@ -44,24 +44,37 @@ def carregar_monstros():
             }
         },
         lista_monstros[3]: {
-            "Nome": "Coordenador",
+            "Nome": "Veterano",
             "Pontos de vida": 10,
             "Habilidades": {
                 lista_habilidades[0] : 1,
                 lista_habilidades[1] : 2
             }
         }
-        
     }
     enfrentando_monstro = lista_monstros[1]
     return monstros, enfrentando_monstro
 
-def funcao_inventario(item):
-    mochila=[]
-    mochila.append(item)
+def inventario():
+    mochila = []
     return mochila
 
+def itens():
+    item = {
+    "carteirinha": {
+        "titulo": "Carteirinha de estudante",
+        "dano": 0
+        },
+    "atestado": {
+        "titulo": "Atestado medico",
+        "dano": 5
+        }
+    }
+    item_atual = "carteirinha"
+    return item, item_atual
+
 def main():
+        
     print("Na hora do sufoco!")
     print("------------------")
     print()
@@ -74,16 +87,23 @@ def main():
     print("------------------------------------------------------------")
     print("Digite 'opcao' ou 'opcoes' para ver os comandos disponíveis.")
     print("------------------------------------------------------------")
-    print()
-    escolha = "saguao"
 
     cenarios, nome_cenario_atual = carregar_cenarios()
     monstros, enfrentando_monstro = carregar_monstros()
+    item, item_atual = itens()
+    mochila = inventario()
     
     game_over = False
-    i = 0
+    porteiro = True
+    escolha = "saguao"
+    nome = input("Antes de começar a sua jornada em busca do adiamento do EP...\nDigite seu nome: ")
+   
+    while len(nome) == 0:
+        nome = input("Não seja tímido, diga seu nome: ")
+    print()
     
     while not game_over and escolha != "desistir":
+        
         cenario_atual = cenarios[nome_cenario_atual]
         print(cenario_atual["titulo"])
         print("-"*len(cenario_atual["titulo"]))
@@ -110,14 +130,22 @@ def main():
                     escolha = input("Não conheço esta opção... :/\n\nEscolha a sua opção: ")
             if escolha in opcoes:
                 nome_cenario_atual = escolha
-                #game_over = True
-            elif nome_cenario_atual == "biblioteca":
-                if randint(1,3) == 1:
-                    while i < 3:
-                        cenarios["biblioteca"]["descricao"] = "Você entra Santuario da sabedoria e derrepente se depara com um objeto cúbico peculiar..."
-                        cenarios["biblioteca"]["opcoes"] = {"dado misterioso": "Pegar dado misterioso no chao"}
-                        i+=1
+                if nome_cenario_atual == "catraca" and "carteirinha" not in mochila:
+                    print(Fore.RED + "Você não está com sua carteirinha, portanto não pode passar pela catraca!")
+                    print(Fore.RESET)
+                    nome_cenario_atual = "saguao"
+                elif escolha == "achados e perdidos":
+                    if "carteirinha" not in mochila:    
+                        print(Fore.GREEN + "Olá {0}, o porteiro encontrou a sua carteirinha ontem no chão! Iremos devolvê-la para você, mas tome cuidado com o porteiro, ele parece estar meio irritado...".format(nome))
+                        print(Fore.RESET)
+                        mochila.append("carteirinha")
+                        nome_cenario_atual = "saguao"
+                    else:
+                        print(Fore.GREEN + "Desculpe, não temos nada perdido em seu nome, {0}".format(nome))
+                        print(Fore.RESET)
+                        nome_cenario_atual = "saguao"
 
+                        
     if escolha == 'desistir':
         print("Você desistiu de tentar o adiamento, foi embora e pegou DP!")
     else:
