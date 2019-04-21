@@ -56,19 +56,22 @@ def carregar_monstros(i):
     ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
     return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
-'''def combate(enfrentando_monstro):
-    vida_inimigo = enfrentando_monstro["Vida"]
-    ataque_inimigo = enfrentando_monstro["Dano"]
-    return vida_inimigo, ataque_inimigo'''
-
-def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over):
+def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila):
     print("Você entrou em combate com {0}!".format(nome_inimigo))
+    arma = input(Fore.CYAN + "Para abrir a mochila digite: 'mochila'\n" + Fore.RESET + "Informe a sua arma: ")
+    while arma not in mochila:
+        if arma == "mochila":
+            print(mochila)
+            arma = input("Informe a sua arma: ")
+        else:
+            arma = input("Você não possui este item na sua mochila, digite outro: ")
+    arma_usada = item[arma]
     print("Sua vida: {0}".format(vida))
     print(f"Vida do inimigo: {vida_inimigo}")
     while vida > 0 and vida_inimigo > 0:
         dano_inimigo = ataque_inimigo[randint(0,1)]
-        vida_inimigo-=item["punhos"]["dano"]
-        print("Você bate no inimigo com {0} e deixa o inimigo com {1} de vida!".format(item["punhos"]["titulo"],vida_inimigo))
+        vida_inimigo-=arma_usada["dano"]
+        print("Você bate no inimigo com {0} e deixa o inimigo com {1} de vida!".format(arma_usada["titulo"],vida_inimigo))
         sleep(1)
         if vida_inimigo <= 0:
             break
@@ -78,7 +81,6 @@ def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over):
         print()
         print(Fore.GREEN + "Você venceu a luta!")
         print(Fore.RESET)
-        sleep(3)
     elif vida <= 0:
         game_over = True
     return vida, vida_inimigo, game_over
@@ -90,15 +92,15 @@ def inventario():
 def itens():
     item = {
     "carteirinha": {
-        "titulo": "Carteirinha de estudante",
+        "titulo": "carteirinha",
         "dano": 0
         },
     "atestado": {
-        "titulo": "Atestado medico",
+        "titulo": "atestado",
         "dano": 5
         },
     "punhos": {
-        "titulo": "Próprias mãos",
+        "titulo": "punhos",
         "dano": 3
         }
     }
@@ -119,12 +121,14 @@ def main():
     print("Digite 'opcao' ou 'opcoes' para ver os comandos disponíveis.")
     print("------------------------------------------------------------")
 
+    dinheiro = 0
     game_over = False
     seguranca_deny = 1
     vida = 20
     i = 0
     escolha = "saguao"
     nome = input("Antes de começar a sua jornada em busca do adiamento do EP...\nDigite seu nome: ")
+    
     while len(nome) == 0:
         nome = input("Não seja tímido, diga seu nome: ")
     print()
@@ -133,6 +137,8 @@ def main():
     monstros, nome_inimigo, vida_inimigo, ataque_inimigo = carregar_monstros(i)
     item = itens()
     mochila = inventario()
+    
+    mochila.append("punhos")
     
     while not game_over and escolha != "desistir":
         
@@ -181,14 +187,20 @@ def main():
                     print(Fore.RESET)
                     i = 0
                     sleep(5)
-                    vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over)
+                    vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
+                    if vida > 0:
+                        dinheiro += 50
+                        print(Fore.CYAN + "+50 dinheiro\nPara sacar o dinheiro vá até algum caixa eletrônico")
+                        print(Fore.RESET)
+                        sleep(3)
                     seguranca_deny = 0
-
                         
     if escolha == 'desistir':
-        print("Você desistiu de tentar o adiamento, foi embora e pegou DP!")
+        print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
+        print(Fore.RESET)
     else:
         print(Fore.RED + "Você morreu!")
+        print(Fore.RESET)
   
 # Programa principal.
 if __name__ == "__main__":
