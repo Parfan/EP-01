@@ -9,7 +9,7 @@ import json
 from colorama import *
 
 def carregar_cenarios():
-    with open('arquivo_cenariostemp.py','r') as arquivo_cenarios:
+    with open('arquivo_cenarios.py','r') as arquivo_cenarios:
         arquivo1 = arquivo_cenarios.read()
     cenarios = json.loads(arquivo1)
     nome_cenario_atual = "saguao"
