@@ -10,17 +10,6 @@ from random import randint
 from colorama import *
 from time import sleep
 import pygame
-import Image
-from PIL import Image
- 
-
-im = Image.open( 'Mapa.png' )
-im.show()
-
-def mapa():
-    
-    myImage = Image.open("Mapa.png");
-    myImage.show();
 
 def carregar_cenarios():
     with open('arquivo_cenarios.py','r') as arquivo_cenarios:
@@ -271,27 +260,45 @@ def main():
                         else:
                             cenario_anterior = "elevador"
                             nome_cenario_atual = "easter egg"
-                    elif usar_elevador == "1337":
+                    elif usar_elevador == "42":
                         cenario_anterior = "elevador"
                         nome_cenario_atual = "easter egg"
                     else:
                         nome_cenario_atual = cenario_anterior
                 elif nome_cenario_atual == "hall":
-                    if randint(1,9) < 10:
+                    if randint(1,9) < 2:
                         i = randint(0,3)
                         monstros, nome_inimigo, vida_inimigo, ataque_inimigo = carregar_monstros(i)
                         vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
                         if vida > 0:
                             dinheiro += 20
                             print(Fore.CYAN + "+20 dinheiro\n" + Fore.RESET)
+                elif nome_cenario_atual == "auditorio":
+                    if escolha == "pista":
+                        print("Numero do P2, senha do elevador 42")
+                elif nome_cenario_atual == "sala de estudo":
+                    if escolha == "caixa brilhante":
+                        print("Numero do P1")
                 elif nome_cenario_atual == "easter egg":
-                    if escolha == "sala secreta":
-                       nome_cenario_atual = "sala do teleport"
-                       input("Você gostaria de rodar o dado magico?: ")
+                    if escolha == "sala da decisao":
+                       nome_cenario_atual = "sala da decisao"
+                elif nome_cenario_atual == "objeto brilhante":
+                       if escolha == "olhar dentro da caixa":
+                           nome_cenario_atual == "olhar dentro da caixa" 
+                elif nome_cenario_atual == "olhar dentro da caixa":
+                    solucao_easter_egg = input("Soma do P1 e do P2: ")
+                    print(solucao_easter_egg)
+                    if solucao_easter_egg == "500":
+                        game_over = True
+                           
+                           
                        
+                
     if escolha == 'desistir':
         print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
         print(Fore.RESET)
+    elif solucao_easter_egg == ("500"):
+        print(Fore.YELLOW + "YOU WIN")
     else:
         print(Fore.RED + "Você morreu!")
         print(Fore.RESET)

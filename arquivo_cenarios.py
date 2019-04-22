@@ -23,7 +23,7 @@
         "descricao": "Voce esta no corredor do primeiro andar",
         "opcoes": {
             "elevador": "Ir para o elevador",
-            "biblioteca": "Ir para o transportador magico",
+            "biblioteca": "Ir para a biblioteca ",
             "saguao": "Voltar ao saguao",
             "hall": "Ir para o hall"
         }
@@ -33,7 +33,7 @@
         "descricao": "Voce esta no hall",
         "opcoes": {
             "corredor 1 andar": "Ir para o corredor do primeiro andar",
-            "auditorio": "Ir para o transportador magico",
+            "auditorio": "Ir para o palco",
             "escada": "Ir para a escadaria do infinito",
             "saguao": "Voltar para o saguao",
             "caixa eletronico 1 andar": "Checar conta bancaria"
@@ -58,7 +58,8 @@
         "titulo": "Auditorio",
         "descricao": "Voce esta no auditorio",
         "opcoes": {
-            "hall": "Voltar para o hall"
+            "hall": "Voltar para o hall",
+            "pista": "Abrir caixa com a primeira pista"
         }
     },
     "biblioteca": {
@@ -73,6 +74,7 @@
         "titulo": "Sala de estudo",
         "descricao": "Voce esta na sala de estudo",
         "opcoes": {
+            "caixa brilhante":"Abrir a caixa no canto da sala",
             "biblioteca": "Voltar para a biblioteca"
         }
     },
@@ -136,23 +138,31 @@
         "titulo": "EASTER EGG",
         "descricao": "Que lugar e esse?",
         "opcoes": {
-            "sala do teleport": "Entrar no corredor escuro",
+            "sala da decisao": "Entrar no corredor escuro",
             "corredor 2 andar": "Ir para o corredor do segundo andar"
         }
     },
-    "sala do teleport": {
+    "sala da decisao": {
         "titulo": "recanto do Techjohnson",
         "descricao": "Carambolas a sala secreta do Techjohnson",
         "opcoes": {
-            "Objeto brilhante na mesa": "Verificar o que esta brilhando na borda da mesa",
+            "objeto brilhante": "Verificar o que esta brilhando na borda da mesa",
             "corredor 2 andar": "Ir para o corredor do segundo andar"
         }
     },
-    "dado teleport": {
-        "titulo": "dado mitico",
-        "descricao": "Este dado possui habilidades que ainda não foram testas CAUTELA!",
+    "objeto brilhante": {
+        "titulo": "canto da mesa",
+        "descricao": "Uma caixa brilha com uma coisa misteriosa dentro dela",
         "opcoes": {
-            "dado na mesa": "Rodar o dado",
+            "olhar dentro da caixa": "Verificar o que esta brilhando na borda da mesa",
+            "corredor 2 andar": "Ir para o corredor do segundo andar"
+        }
+    },
+        "olhar dentro da caixa": {
+        "titulo": "caixa",
+        "descricao": "Utilize as pistas",
+        "opcoes": {
+            "olhar dentro da caixa": "Verificar o que esta brilhando na borda da mesa",
             "corredor 2 andar": "Ir para o corredor do segundo andar"
         }
     }

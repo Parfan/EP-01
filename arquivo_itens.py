@@ -14,5 +14,10 @@
     "chave": {
         "titulo": "chave",
         "dano": 0
+        },
+    "faca": {
+        "titulo": "faca",
+        "dano": 4
         }
+    
     } 
