@@ -299,6 +299,7 @@ def main():
         print(Fore.RESET)
     elif solucao_easter_egg == ("500"):
         print(Fore.YELLOW + "YOU WIN")
+        print(Fore.RESET) 
     else:
         print(Fore.RED + "Você morreu!")
         print(Fore.RESET)
