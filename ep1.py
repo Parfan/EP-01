@@ -17,45 +17,6 @@ def carregar_cenarios():
     nome_cenario_atual = "saguao"
     return cenarios, nome_cenario_atual
 
-def carregar_monstros(i):
-    lista_habilidades = [1,2]
-    lista_monstros = [1,2,3,4]
-    monstros = {
-        lista_monstros[0]: {
-            "Nome": "Seguranca",
-            "Vida": 12,
-            "Dano": [3,2]
-        },
-        lista_monstros[1]: {
-            "Nome": "Faxineira ninja",
-            "Vida": 8,
-            "Dano": {
-                lista_habilidades[0] : 2,
-                lista_habilidades[1] : 3
-            }
-        },
-        lista_monstros[2]: {
-            "Nome": "Professor",
-            "Vida": 10,
-            "Dano": {
-                lista_habilidades[0] : 1,
-                lista_habilidades[1] : 2
-            }
-        },
-        lista_monstros[3]: {
-            "Nome": "Veterano",
-            "Vida": 10,
-            "Dano": {
-                lista_habilidades[0] : 1,
-                lista_habilidades[1] : 2
-            }
-        }
-    }
-    nome_inimigo = monstros[lista_monstros[i]]["Nome"]
-    vida_inimigo = monstros[lista_monstros[i]]["Vida"]
-    ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
-    return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
-
 def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila):
     print("Você entrou em combate com {0}!".format(nome_inimigo))
     arma = input(Fore.CYAN + "Para abrir a mochila digite: 'mochila'\n" + Fore.RESET + "Informe a sua arma: ")
@@ -89,6 +50,35 @@ def inventario():
     mochila = []
     return mochila
 
+def carregar_monstros(i):
+    lista_monstros = [1,2,3,4]
+    monstros = {
+        lista_monstros[0]: {
+            "Nome": "Seguranca",
+            "Vida": 12,
+            "Dano": [3,2]
+        },
+        lista_monstros[1]: {
+            "Nome": "Faxineira ninja",
+            "Vida": 8,
+            "Dano": [4,1]
+        },
+        lista_monstros[2]: {
+            "Nome": "Professor",
+            "Vida": 10,
+            "Dano": [2,0]
+        },
+        lista_monstros[3]: {
+            "Nome": "Veterano",
+            "Vida": 10,
+            "Dano": [2,2]
+        }
+    }
+    nome_inimigo = monstros[lista_monstros[i]]["Nome"]
+    vida_inimigo = monstros[lista_monstros[i]]["Vida"]
+    ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
+    return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
+
 def itens():
     item = {
     "carteirinha": {
@@ -102,6 +92,10 @@ def itens():
     "punhos": {
         "titulo": "punhos",
         "dano": 3
+        },
+    "chave": {
+        "titulo": "chave",
+        "dano": 0
         }
     }
     return item
@@ -193,10 +187,10 @@ def main():
                     seguranca_deny = 0
                 elif nome_cenario_atual == "estacionamento":
                     if cenario_anterior == "saguao":
-                        if randint(1,2) < 2:
+                        if randint(1,6) < 2:
                             vida-=5
                             print(Fore.CYAN + "Cuidado por onde anda!\nVocê estava atravessando a rua no estacionamento sem olhar para os dois lados e foi atropelado por uma bicicleta!\n")
-                            print(Fore.RED + "\n-5 vida\n" + Fore.RESET + f"Vida = {vida}\n")
+                            print(Fore.RED + "-5 vida\n" + Fore.RESET + f"Vida = {vida}\n")
                             if vida <= 0:
                                 game_over = True
                             else:
@@ -204,6 +198,12 @@ def main():
                                 nome_cenario_atual = "saguao"
                 elif nome_cenario_atual == "tech lab":
                     cenario_anterior = "tech lab"
+                    if item["chave"]["titulo"] in mochila:
+                        print(Fore.CYAN + "Você entrou no tech lab e encontrou o SMASH testando um teletransportador revolucionário, porém, ainda é uma tecnologia nova e eles não tem nenhuma cobaia para testar...\n")
+                        print("Sendo uma pessoa gentil, você se oferece a ser a cobaia que será teletransportada pela primeira vez na história!" + Fore.RESET)
+                    else:
+                        print(Fore.CYAN + "O tech lab está trancado, parece que para entrar você precisará de uma chave!\n" + Fore.RESET)
+                        nome_cenario_atual = "estacionamento"
                 elif nome_cenario_atual == "saguao":
                     cenario_anterior = "saguao"
                 elif nome_cenario_atual == "roubar carro":
@@ -220,7 +220,7 @@ def main():
                         else:
                             if dinheiro >= 75:
                                 print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 75 dinheiros para ele!\n" + Fore.RESET)
-                                escolha = input("O que você vai fazer?\n--- OPÇÕES ---\n* 'sim' (Aceitar suborno)\n* 'nao' (Recusar suborno)\n\nEscolha a sua opção: ")
+                                escolha = input("O que você vai fazer?\n--- OPÇÕES ---\n* 'sim' (Aceitar extosão)\n* 'nao' (Recusar extorsão)\n\nEscolha a sua opção: ")
                                 if escolha != "sim":
                                     if escolha != "nao":
                                         print(Fore.WHITE + "O veterano percebe que você está tentando enrolar ele e ele liga pra polícia...\nVocê vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
@@ -238,6 +238,15 @@ def main():
                                 print("E como você não possui 50 dinheiros, ele chama a polícia e você vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
                                 escolha = "saguao"
                                 game_over = True
+                elif nome_cenario_atual == "hall":
+                    i = 0
+                    monstros, nome_inimigo, vida_inimigo, ataque_inimigo = carregar_monstros(i)
+                    vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
+                    if vida > 0:
+                        dinheiro += 50
+                        print(Fore.CYAN + "+50 dinheiro\nPara sacar ou depositar o dinheiro vá até algum caixa eletrônico\n" + Fore.RESET)
+                        sleep(3)
+                #elif:
     if escolha == 'desistir':
         print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
         print(Fore.RESET)
