@@ -121,8 +121,10 @@ def main():
     print("Digite 'opcao' ou 'opcoes' para ver os comandos disponíveis.")
     print("------------------------------------------------------------")
 
+    cenario_anterior = "saguao"
     dinheiro = 0
     game_over = False
+    estacionamento_deny = 0
     seguranca_deny = 1
     vida = 20
     i = 0
@@ -169,32 +171,73 @@ def main():
             if escolha in opcoes:
                 nome_cenario_atual = escolha
                 if nome_cenario_atual == "catraca" and "carteirinha" not in mochila:
-                    print(Fore.RED + "Você não está com sua carteirinha, portanto não pode passar pela catraca!")
-                    print(Fore.RESET)
+                    print(Fore.RED + "Você não está com sua carteirinha, portanto não pode passar pela catraca!\n" + Fore.RESET)
                     nome_cenario_atual = "saguao"
                 elif escolha == "achados e perdidos":
                     if "carteirinha" not in mochila:    
-                        print(Fore.CYAN + "Olá {0}, o segurança encontrou a sua carteirinha ontem no chão! Iremos devolvê-la para você, mas tome cuidado com o segurança, ele parece estar meio irritado...".format(nome))
-                        print(Fore.RESET)
+                        print(Fore.CYAN + "Olá {0}, o segurança encontrou a sua carteirinha ontem no chão! Iremos devolvê-la para você, mas tome cuidado com o segurança, ele parece estar meio irritado...\n".format(nome) + Fore.RESET)
                         mochila.append("carteirinha")
                         nome_cenario_atual = "saguao"
                     else:
-                        print(Fore.CYAN + "Desculpe, não temos nada perdido em seu nome, {0}".format(nome))
-                        print(Fore.RESET)
+                        print(Fore.CYAN + "Desculpe, não temos nada perdido em seu nome, {0}\n".format(nome) + Fore.RESET)
                         nome_cenario_atual = "saguao"
                 elif nome_cenario_atual == "catraca" and seguranca_deny == 1:
-                    print(Fore.RED + "Segurança: HAA! FINALMENTE ENCONTREI VOCÊ MOLEQUE, AGORA VOU TE DAR UMA LIÇÃO PARA NUNCA MAIS ME FAZER DE TROUXA CATANDO CARTEIRINHA DE GENTE DESCUIDADA!")
-                    print(Fore.RESET)
+                    print(Fore.RED + "Segurança: HAA! FINALMENTE ENCONTREI VOCÊ MOLEQUE, AGORA VOU TE DAR UMA LIÇÃO PARA NUNCA MAIS ME FAZER DE TROUXA CATANDO CARTEIRINHA DE GENTE DESCUIDADA!\n" + Fore.RESET)
                     i = 0
                     sleep(5)
                     vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
                     if vida > 0:
                         dinheiro += 50
-                        print(Fore.CYAN + "+50 dinheiro\nPara sacar o dinheiro vá até algum caixa eletrônico")
-                        print(Fore.RESET)
+                        print(Fore.CYAN + "+50 dinheiro\nPara sacar ou depositar o dinheiro vá até algum caixa eletrônico\n" + Fore.RESET)
                         sleep(3)
                     seguranca_deny = 0
-                        
+                elif nome_cenario_atual == "estacionamento":
+                    if cenario_anterior == "saguao":
+                        if randint(1,2) < 2:
+                            vida-=5
+                            print(Fore.CYAN + "Cuidado por onde anda!\nVocê estava atravessando a rua no estacionamento sem olhar para os dois lados e foi atropelado por uma bicicleta!\n")
+                            print(Fore.RED + "\n-5 vida\n" + Fore.RESET + f"Vida = {vida}\n")
+                            if vida <= 0:
+                                game_over = True
+                            else:
+                                print(Fore.CYAN + "Por sorte você passa bem e conseguiu voltar ao saguao!\n" + Fore.RESET)
+                                nome_cenario_atual = "saguao"
+                elif nome_cenario_atual == "tech lab":
+                    cenario_anterior = "tech lab"
+                elif nome_cenario_atual == "saguao":
+                    cenario_anterior = "saguao"
+                elif nome_cenario_atual == "roubar carro":
+                    cenario_anterior = "roubar carro"
+                    if randint(1,5) < 5:
+                        print(Fore.WHITE + "\nVocê vê um carro com o vidro aberto e resolve destrancá-lo...\nUsa seus conhecimentos de engenharia para fazer uma ligação direta no carro e, na hora que ia acelerar não percebe que estava na marcha ré!\nPAAAAH!!!\n" + Fore.RESET)
+                        game_over = True
+                    else:
+                        if estacionamento_deny == 0:
+                            dinheiro+=50
+                            print(Fore.WHITE + "Você vê um carro com o vidro aberto e resolve destrancá-lo...\nPor sorte ninguém te vê e você consegue voltar para o estacionamento com mais 50 dinheiros\n" + Fore.CYAN)                        
+                            print("+50 dinheiros\nPara sacar ou depositar o dinheiro vá até algum caixa eletrônico\n" + Fore.RESET)
+                            estacionamento_deny += 1
+                        else:
+                            if dinheiro >= 75:
+                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 75 dinheiros para ele!\n" + Fore.RESET)
+                                escolha = input("O que você vai fazer?\n--- OPÇÕES ---\n* 'sim' (Aceitar suborno)\n* 'nao' (Recusar suborno)\n\nEscolha a sua opção: ")
+                                if escolha != "sim":
+                                    if escolha != "nao":
+                                        print(Fore.WHITE + "O veterano percebe que você está tentando enrolar ele e ele liga pra polícia...\nVocê vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
+                                    else:
+                                        print(Fore.WHITE + "O veterano liga pra polícia...\nVocê vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
+                                        escolha = "saguao"
+                                    game_over = True
+                                else:
+                                    dinheiro -= 75
+                                    print(Fore.WHITE + "Você aceita a extorsão do veterano e perde 75 dinheiros!\n\n" + Fore.RED)
+                                    print("-75 dinheiros\n" + Fore.RESET)
+                                    nome_cenario_atual = "estacionamento"
+                            else:
+                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 75 dinheiros para ele!\n")
+                                print("E como você não possui 50 dinheiros, ele chama a polícia e você vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
+                                escolha = "saguao"
+                                game_over = True
     if escolha == 'desistir':
         print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
         print(Fore.RESET)

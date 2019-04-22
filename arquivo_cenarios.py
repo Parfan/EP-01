@@ -86,12 +86,27 @@
             "corredor 4 andar": "Ir para o corredor do quarto andar"
         }
     },
-    
     "estacionamento": {
         "titulo": "Estacionamento",
         "descricao": "Voce esta no estacionamento",
         "opcoes": {
-            "saguao": "Voltar ao saguao"
+            "saguao": "Voltar ao saguao",
+            "tech lab": "Ir para o tech lab",
+            "roubar carro": "Tentar roubar um carro"
+        }
+    },
+    "roubar carro": {
+        "titulo": "Roubar carro",
+        "descricao": "Voce esta tentando roubar um carro!",
+        "opcoes": {
+            "estacionamento": "Voltar ao estacionamento"
+        }
+    },
+    "tech lab": {
+        "titulo": "Tech Lab",
+        "descricao": "Voce esta no tech lab",
+        "opcoes": {
+            "estacionamento": "Voltar para o estacionamento"
         }
     },
     "corredor 2 andar": {
