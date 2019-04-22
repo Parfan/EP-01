@@ -10,6 +10,7 @@ from random import randint
 from colorama import *
 from time import sleep
 import pygame
+from PIL import Image
 
 def carregar_cenarios():
     with open('arquivo_cenarios.py','r') as arquivo_cenarios:
@@ -95,6 +96,8 @@ def carregar_monstros(i):
     return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
 def main():
+    im = Image.open( 'Mapa.png' )
+    im.show() 
         
     pygame.init()
     pygame.display.set_mode((200,100))
