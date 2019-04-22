@@ -90,19 +90,16 @@ def maquina_de_snack(dinheiro):
     snacks={
     "snickers": {
         "titulo": "Snickers, mata sua fome",
-      
         "atributos": {
-            "catraca": "Passar pela catraca",
-            "desistir": "Desistir e ir embora",
-            "achados e perdidos": "Ir para os achados e perdidos",
-            "estacionamento": "Ir para o estacionamento"
+            'preço': 30,
+            'vida': 5
         }
     },
     "twix": {
         "titulo": "O portao giratorio",
         "atributos": {
             'preço':40,
-            'vida':5
+            'vida':10
             
         }
     }
