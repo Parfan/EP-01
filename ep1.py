@@ -87,6 +87,7 @@ def carregar_monstros(i):
     return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
 def maquina_de_snack(dinheiro):
+    snacks=item 
     snacks={
     "snickers": {
         "titulo": "Snickers, mata sua fome",
@@ -100,9 +101,10 @@ def maquina_de_snack(dinheiro):
         "atributos": {
             'preço':40,
             'vida':10
-            }
-    }
-    
+   }
+}
+    return item
+
 def main():
     
     pygame.init()
