@@ -18,6 +18,12 @@ def carregar_cenarios():
     nome_cenario_atual = "saguao"
     return cenarios, nome_cenario_atual
 
+def itens():
+    with open('arquivo_itens.py','r') as arquivo_itens:
+        arquivo2 = arquivo_itens.read()
+    item = json.loads(arquivo2)
+    return item
+
 def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila):
     print("Você entrou em combate com {0}!".format(nome_inimigo))
     arma = input(Fore.CYAN + "Para abrir a mochila digite: 'mochila'\n" + Fore.RESET + "Informe a sua arma: ")
@@ -80,32 +86,12 @@ def carregar_monstros(i):
     ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
     return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
-def itens():
-    item = {
-    "carteirinha": {
-        "titulo": "carteirinha",
-        "dano": 0
-        },
-    "atestado": {
-        "titulo": "atestado",
-        "dano": 5
-        },
-    "punhos": {
-        "titulo": "punhos",
-        "dano": 3
-        },
-    "chave": {
-        "titulo": "chave",
-        "dano": 0
-        }
-    }
-    return item
-
 def main():
-    
+        
     pygame.init()
     pygame.display.set_mode((200,100))
     pygame.mixer.music.load("MusicaEP.mp3")
+    pygame.mixer.music.set_volume(0)
     pygame.mixer.music.play(-1)
     
     print("Na hora do sufoco!")
@@ -121,8 +107,7 @@ def main():
     print("Digite 'opcao' ou 'opcoes' para ver os comandos disponíveis.")
     print("------------------------------------------------------------")
 
-    cenario_anterior = "saguao"
-    pocao_de_HP = 0
+    dinheiro = 0
     game_over = False
     estacionamento_deny = 0
     seguranca_deny = 1
@@ -130,6 +115,10 @@ def main():
     i = 0
     escolha = "saguao"
     nome = input("Antes de começar a sua jornada em busca do adiamento do EP...\nDigite seu nome: ")
+    
+    while nome.lower() == "andrew":
+        nome = input("Desculpe, mas apenas humanos podem jogar este jogo...\nDigite seu nome: ")
+    print()
     
     while len(nome) == 0:
         nome = input("Não seja tímido, diga seu nome: ")
@@ -166,6 +155,10 @@ def main():
                         print(f"* '{k}' ({v})")
                     escolha = input("Escolha a sua opção: ")
                     print()
+                elif escolha == 'mochila' or escolha == 'inventario':
+                    print(mochila)
+                    escolha = input("Escolha a sua opção: ")
+                    print()
                 else:
                     escolha = input("Não conheço esta opção... :/\n\nEscolha a sua opção: ")
             if escolha in opcoes:
@@ -187,8 +180,8 @@ def main():
                     sleep(5)
                     vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
                     if vida > 0:
-                        pocao_de_HP += 1
-                        print(Fore.CYAN + "+1 pocao de HP\nPara utilizar abra a sua mochila\n" + Fore.RESET)
+                        dinheiro += 50
+                        print(Fore.CYAN + "+50 dinheiro\n" + Fore.RESET)
                         sleep(3)
                     seguranca_deny = 0
                 elif nome_cenario_atual == "estacionamento":
@@ -219,13 +212,13 @@ def main():
                         game_over = True
                     else:
                         if estacionamento_deny == 0:
-                            pocao_de_HP+=3
-                            print(Fore.WHITE + "Você vê o carro com o vidro aberto e resolve destrancá-lo...\nPor sorte ninguém te vê e você consegue voltar para o estacionamento com mais 50 dinheiros\n" + Fore.CYAN)                        
-                            print("+ pocao de HP\nPara utilizar a sua pocao abra a sua mochila\n" + Fore.RESET)
+                            dinheiro += 50
+                            print(Fore.WHITE + "Você vê um carro com o vidro aberto e resolve destrancá-lo...\nPor sorte ninguém te vê e você consegue voltar para o estacionamento com mais 50 dinheiros\n" + Fore.CYAN)                        
+                            print("+50 dinheiros\n" + Fore.RESET)
                             estacionamento_deny += 1
                         else:
                             if dinheiro >= 75:
-                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 2 pocoes de HP para ele!\n" + Fore.RESET)
+                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 75 dinheiros para ele!\n" + Fore.RESET)
                                 escolha = input("O que você vai fazer?\n--- OPÇÕES ---\n* 'sim' (Aceitar extosão)\n* 'nao' (Recusar extorsão)\n\nEscolha a sua opção: ")
                                 if escolha != "sim":
                                     if escolha != "nao":
@@ -236,22 +229,37 @@ def main():
                                     game_over = True
                                 else:
                                     dinheiro -= 75
-                                    print(Fore.WHITE + "Você aceita a extorsão do veterano e perde 2 pocoes!\n\n" + Fore.RED)
-                                    print("-2 pocoes\n" + Fore.RESET)
+                                    print(Fore.WHITE + "Você aceita a extorsão do veterano e perde 75 dinheiros!\n\n" + Fore.RED)
+                                    print("-75 dinheiros\n" + Fore.RESET)
                                     nome_cenario_atual = "estacionamento"
                             else:
-                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 4 pocoes de HP para ele!\n")
-                                print("E como você não possui 4 pocoes de HP, ele chama a polícia e você vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
+                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 75 dinheiros para ele!\n")
+                                print("E como você não possui 50 dinheiros, ele chama a polícia e você vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
                                 escolha = "saguao"
                                 game_over = True
-                elif nome_cenario_atual == "hall":
-                    i = 0
-                    monstros, nome_inimigo, vida_inimigo, ataque_inimigo = carregar_monstros(i)
-                    vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
-                    if vida > 0:
-                        dinheiro += 50
-                        print(Fore.CYAN + "+1 pocao de HP\nPara utilizar a sua pocao abra a mochila\n" + Fore.RESET)
-                        sleep(3)
+                elif nome_cenario_atual == "corredor 1 andar":
+                    cenario_anterior = "corredor 1 andar"
+                elif nome_cenario_atual == "corredor 2 andar":
+                    cenario_anterior = "corredor 2 andar"
+                elif nome_cenario_atual == "elevador":
+                    usar_elevador = input(Fore.CYAN + "O elevador está em manutenção, mas como não tem ninguém olhando você pode tentar usá-lo...\n" + Fore.RESET + "--- OPÇÕES ---\n* 'sim' (Usar elevador)\n* 'nao' (Melhor não né...)\n\nEscolha a sua opção: ")
+                    print()
+                    if usar_elevador == "sim":
+                        if randint (1,10) < 10:
+                            print("Você entra no elevador mesmo sabendo que o mesmo está em manutenção...\nQuando o botão do andar é acionado você escuta um barulho de metal se rompendo...\n")
+                            game_over = True
+                        else:
+                            cenario_anterior = "elevador"
+                            nome_cenario_atual = "easter egg"
+                    elif usar_elevador == "1337":
+                        cenario_anterior = "elevador"
+                        nome_cenario_atual = "easter egg"
+                    else:
+                        nome_cenario_atual = cenario_anterior
+                #elif nome_cenario_atual == "easter egg":
+                    
+                    
+                        
                 #elif:
     if escolha == 'desistir':
         print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
