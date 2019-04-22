@@ -257,9 +257,11 @@ def main():
                     else:
                         nome_cenario_atual = cenario_anterior
                 elif nome_cenario_atual == "easter egg":
-                   if escolha == "sala secreta":
+                   if escolha == "sala do teleport":
                        nome_cenario_atual = "sala do teleport"
-                       input("Você gostaria de rodar o dado magico?: ")
+                       escolha = ("rodar o dado") 
+                       nome_cenario_atual == ("dado teleport")
+                       
                        
     if escolha == 'desistir':
         print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
@@ -268,7 +270,8 @@ def main():
         print(Fore.RED + "Você morreu!")
         print(Fore.RESET)
     pygame.mixer.music.stop()
-  
+    
+
 # Programa principal.
 if __name__ == "__main__":
     main()

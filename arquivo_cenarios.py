@@ -136,13 +136,21 @@
         "titulo": "EASTER EGG",
         "descricao": "Que lugar e esse?",
         "opcoes": {
-            "sala secreta": "Entrar no corredor escuro",
+            "sala do teleport": "Entrar no corredor escuro",
             "corredor 2 andar": "Ir para o corredor do segundo andar"
         }
     },
     "sala do teleport": {
         "titulo": "recanto do Techjohnson",
         "descricao": "Carambolas a sala secreta do Techjohnson",
+        "opcoes": {
+            "Objeto brilhante na mesa": "Verificar o que esta brilhando na borda da mesa",
+            "corredor 2 andar": "Ir para o corredor do segundo andar"
+        }
+    },
+    "dado teleport": {
+        "titulo": "dado mitico",
+        "descricao": "Este dado possui habilidades que ainda não foram testas CAUTELA!",
         "opcoes": {
             "dado na mesa": "Rodar o dado",
             "corredor 2 andar": "Ir para o corredor do segundo andar"
