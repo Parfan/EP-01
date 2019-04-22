@@ -86,6 +86,25 @@ def carregar_monstros(i):
     ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
     return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
+def maquina_de_snack(dinheiro):
+    snacks={
+    "snickers": {
+        "titulo": "Snickers, mata sua fome",
+        "atributos": {
+            'preço': 30,
+            'vida': 5
+        }
+    },
+    "twix": {
+        "titulo": "O portao giratorio",
+        "atributos": {
+            'preço':40,
+            'vida':10
+            
+        }
+    }
+    
+
 def main():
         
     pygame.init()
@@ -257,11 +276,9 @@ def main():
                     else:
                         nome_cenario_atual = cenario_anterior
                 elif nome_cenario_atual == "easter egg":
-                   if escolha == "sala do teleport":
+                   if escolha == "sala secreta":
                        nome_cenario_atual = "sala do teleport"
-                       escolha = ("rodar o dado") 
-                       nome_cenario_atual == ("dado teleport")
-                       
+                       input("Você gostaria de rodar o dado magico?: ")
                        
     if escolha == 'desistir':
         print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
@@ -270,7 +287,6 @@ def main():
         print(Fore.RED + "Você morreu!")
         print(Fore.RESET)
     pygame.mixer.music.stop()
-    
 
 # Programa principal.
 if __name__ == "__main__":
