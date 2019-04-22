@@ -131,5 +131,12 @@
         "opcoes": {
             "corredor 2 andar": "Ir para o corredor do segundo andar"
         }
+    },
+    "easter egg": {
+        "titulo": "EASTER EGG",
+        "descricao": "Que lugar e esse?",
+        "opcoes": {
+            "corredor 2 andar": "Ir para o corredor do segundo andar"
+        }
     }
 }
