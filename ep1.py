@@ -116,7 +116,7 @@ def main():
     print("------------------------------------------------------------")
 
     cenario_anterior = "saguao"
-    dinheiro = 0
+    pocao_de_HP = 0
     game_over = False
     estacionamento_deny = 0
     seguranca_deny = 1
@@ -181,8 +181,8 @@ def main():
                     sleep(5)
                     vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
                     if vida > 0:
-                        dinheiro += 50
-                        print(Fore.CYAN + "+50 dinheiro\nPara sacar ou depositar o dinheiro vá até algum caixa eletrônico\n" + Fore.RESET)
+                        pocao_de_HP += 1
+                        print(Fore.CYAN + "+1 pocao de HP\nPara utilizar abra a sua mochila\n" + Fore.RESET)
                         sleep(3)
                     seguranca_deny = 0
                 elif nome_cenario_atual == "estacionamento":
@@ -213,13 +213,13 @@ def main():
                         game_over = True
                     else:
                         if estacionamento_deny == 0:
-                            dinheiro+=50
-                            print(Fore.WHITE + "Você vê um carro com o vidro aberto e resolve destrancá-lo...\nPor sorte ninguém te vê e você consegue voltar para o estacionamento com mais 50 dinheiros\n" + Fore.CYAN)                        
-                            print("+50 dinheiros\nPara sacar ou depositar o dinheiro vá até algum caixa eletrônico\n" + Fore.RESET)
+                            pocao_de_HP+=3
+                            print(Fore.WHITE + "Você vê o carro com o vidro aberto e resolve destrancá-lo...\nPor sorte ninguém te vê e você consegue voltar para o estacionamento com mais 50 dinheiros\n" + Fore.CYAN)                        
+                            print("+ pocao de HP\nPara utilizar a sua pocao abra a sua mochila\n" + Fore.RESET)
                             estacionamento_deny += 1
                         else:
                             if dinheiro >= 75:
-                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 75 dinheiros para ele!\n" + Fore.RESET)
+                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 2 pocoes de HP para ele!\n" + Fore.RESET)
                                 escolha = input("O que você vai fazer?\n--- OPÇÕES ---\n* 'sim' (Aceitar extosão)\n* 'nao' (Recusar extorsão)\n\nEscolha a sua opção: ")
                                 if escolha != "sim":
                                     if escolha != "nao":
@@ -230,12 +230,12 @@ def main():
                                     game_over = True
                                 else:
                                     dinheiro -= 75
-                                    print(Fore.WHITE + "Você aceita a extorsão do veterano e perde 75 dinheiros!\n\n" + Fore.RED)
-                                    print("-75 dinheiros\n" + Fore.RESET)
+                                    print(Fore.WHITE + "Você aceita a extorsão do veterano e perde 2 pocoes!\n\n" + Fore.RED)
+                                    print("-2 pocoes\n" + Fore.RESET)
                                     nome_cenario_atual = "estacionamento"
                             else:
-                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 75 dinheiros para ele!\n")
-                                print("E como você não possui 50 dinheiros, ele chama a polícia e você vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
+                                print(Fore.WHITE + "\nVocê tenta roubar o mesmo carro, só que desta vez você é flagrado por um veterano que diz que irá chamar a polícia a menos que você dê 4 pocoes de HP para ele!\n")
+                                print("E como você não possui 4 pocoes de HP, ele chama a polícia e você vai preso com prisão perpétua e apodrece na cadeia!\n" + Fore.RESET)
                                 escolha = "saguao"
                                 game_over = True
                 elif nome_cenario_atual == "hall":
@@ -244,7 +244,7 @@ def main():
                     vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
                     if vida > 0:
                         dinheiro += 50
-                        print(Fore.CYAN + "+50 dinheiro\nPara sacar ou depositar o dinheiro vá até algum caixa eletrônico\n" + Fore.RESET)
+                        print(Fore.CYAN + "+1 pocao de HP\nPara utilizar a sua pocao abra a mochila\n" + Fore.RESET)
                         sleep(3)
                 #elif:
     if escolha == 'desistir':
