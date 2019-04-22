@@ -136,6 +136,15 @@
         "titulo": "EASTER EGG",
         "descricao": "Que lugar e esse?",
         "opcoes": {
+            "sala secreta": "Entrar no corredor escuro",
+            "corredor 2 andar": "Ir para o corredor do segundo andar"
+        }
+    },
+    "sala do teleport": {
+        "titulo": "recanto do Techjohnson",
+        "descricao": "Carambolas a sala secreta do Techjohnson",
+        "opcoes": {
+            "dado na mesa": "Rodar o dado",
             "corredor 2 andar": "Ir para o corredor do segundo andar"
         }
     }

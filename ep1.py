@@ -256,11 +256,11 @@ def main():
                         nome_cenario_atual = "easter egg"
                     else:
                         nome_cenario_atual = cenario_anterior
-                #elif nome_cenario_atual == "easter egg":
-                    
-                    
-                        
-                #elif:
+                elif nome_cenario_atual == "easter egg":
+                   if escolha == "sala secreta":
+                       nome_cenario_atual = "sala do teleport"
+                       input("Você gostaria de rodar o dado magico?: ")
+                       
     if escolha == 'desistir':
         print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
         print(Fore.RESET)
