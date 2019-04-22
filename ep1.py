@@ -9,6 +9,7 @@ import json
 from random import randint
 from colorama import *
 from time import sleep
+import pygame
 
 def carregar_cenarios():
     with open('arquivo_cenarios.py','r') as arquivo_cenarios:
@@ -101,7 +102,12 @@ def itens():
     return item
 
 def main():
-        
+    
+    pygame.init()
+    pygame.display.set_mode((200,100))
+    pygame.mixer.music.load("MusicaEP.mp3")
+    pygame.mixer.music.play(-1)
+    
     print("Na hora do sufoco!")
     print("------------------")
     print()
@@ -253,6 +259,7 @@ def main():
     else:
         print(Fore.RED + "Você morreu!")
         print(Fore.RESET)
+    pygame.mixer.music.stop()
   
 # Programa principal.
 if __name__ == "__main__":
