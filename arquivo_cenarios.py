@@ -22,7 +22,7 @@
         "titulo": "Corredor do primeiro andar",
         "descricao": "Voce esta no corredor do primeiro andar",
         "opcoes": {
-            "teletransportador": "Ir para o teletransportador",
+            "elevador": "Ir para o elevador",
             "biblioteca": "Ir para o transportador magico",
             "saguao": "Voltar ao saguao",
             "hall": "Ir para o hall"
@@ -76,9 +76,9 @@
             "biblioteca": "Voltar para a biblioteca"
         }
     },
-    "teletransportador": {
-        "titulo": "Teletransportador",
-        "descricao": "Voce entrou no teletransportador",
+    "elevador": {
+        "titulo": "Elevador",
+        "descricao": "Voce entrou no elevador",
         "opcoes": {
             "corredor 1 andar": "Ir para o corredor do primeiro andar",
             "corredor 2 andar": "Ir para o corredor do segundo andar",
