@@ -96,17 +96,15 @@ def maquina_de_snack(dinheiro):
         }
     },
     "twix": {
-        "titulo": "O portao giratorio",
+        "titulo": "Twix",
         "atributos": {
             'preço':40,
             'vida':10
-            
-        }
+            }
     }
     
-
 def main():
-        
+    
     pygame.init()
     pygame.display.set_mode((200,100))
     pygame.mixer.music.load("MusicaEP.mp3")
