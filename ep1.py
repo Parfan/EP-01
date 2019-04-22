@@ -86,6 +86,28 @@ def carregar_monstros(i):
     ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
     return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
+def maquina_de_snack(dinheiro):
+    snacks={
+    "snickers": {
+        "titulo": "Snickers, mata sua fome",
+      
+        "atributos": {
+            "catraca": "Passar pela catraca",
+            "desistir": "Desistir e ir embora",
+            "achados e perdidos": "Ir para os achados e perdidos",
+            "estacionamento": "Ir para o estacionamento"
+        }
+    },
+    "twix": {
+        "titulo": "O portao giratorio",
+        "atributos": {
+            'preço':40,
+            'vida':5
+            
+        }
+    }
+    
+
 def main():
         
     pygame.init()
@@ -268,7 +290,7 @@ def main():
         print(Fore.RED + "Você morreu!")
         print(Fore.RESET)
     pygame.mixer.music.stop()
-  
+
 # Programa principal.
 if __name__ == "__main__":
     main()
