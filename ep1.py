@@ -10,6 +10,17 @@ from random import randint
 from colorama import *
 from time import sleep
 import pygame
+import Image
+from PIL import Image
+ 
+
+im = Image.open( 'Mapa.png' )
+im.show()
+
+def mapa():
+    
+    myImage = Image.open("Mapa.png");
+    myImage.show();
 
 def carregar_cenarios():
     with open('arquivo_cenarios.py','r') as arquivo_cenarios:
@@ -33,6 +44,13 @@ def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, m
             arma = input("Informe a sua arma: ")
         else:
             arma = input("Você não possui este item na sua mochila, digite outro: ")
+    
+    pygame.init()
+    pygame.display.set_mode((200,100))
+    pygame.mixer.music.load("MusicaEP.mp3")
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(1)
+    
     arma_usada = item[arma]
     print("Sua vida: {0}".format(vida))
     print(f"Vida do inimigo: {vida_inimigo}")
@@ -45,6 +63,7 @@ def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, m
             break
         vida-=dano_inimigo
         print("{0} te bate e te deixa com {1} de vida".format(nome_inimigo,vida))
+    
     if vida_inimigo <= 0 and vida > 0:
         print()
         print(Fore.GREEN + "Você venceu a luta!")
@@ -86,31 +105,12 @@ def carregar_monstros(i):
     ataque_inimigo = monstros[lista_monstros[i]]["Dano"]
     return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
-def maquina_de_snack(dinheiro):
-    snacks=item 
-    snacks={
-    "snickers": {
-        "titulo": "Snickers, mata sua fome",
-        "atributos": {
-            'preço': 30,
-            'vida': 5
-        }
-    },
-    "twix": {
-        "titulo": "Twix",
-        "atributos": {
-            'preço':40,
-            'vida':10
-   }
-}
-    return item
-
 def main():
-    
+        
     pygame.init()
     pygame.display.set_mode((200,100))
     pygame.mixer.music.load("MusicaEP.mp3")
-    pygame.mixer.music.set_volume(0)
+    pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
     
     print("Na hora do sufoco!")
@@ -126,6 +126,7 @@ def main():
     print("Digite 'opcao' ou 'opcoes' para ver os comandos disponíveis.")
     print("------------------------------------------------------------")
 
+    cenario_anterior = "saguao"
     dinheiro = 0
     game_over = False
     estacionamento_deny = 0
@@ -275,8 +276,16 @@ def main():
                         nome_cenario_atual = "easter egg"
                     else:
                         nome_cenario_atual = cenario_anterior
+                elif nome_cenario_atual == "hall":
+                    if randint(1,9) < 10:
+                        i = randint(0,3)
+                        monstros, nome_inimigo, vida_inimigo, ataque_inimigo = carregar_monstros(i)
+                        vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
+                        if vida > 0:
+                            dinheiro += 20
+                            print(Fore.CYAN + "+20 dinheiro\n" + Fore.RESET)
                 elif nome_cenario_atual == "easter egg":
-                   if escolha == "sala secreta":
+                    if escolha == "sala secreta":
                        nome_cenario_atual = "sala do teleport"
                        input("Você gostaria de rodar o dado magico?: ")
                        
@@ -287,7 +296,7 @@ def main():
         print(Fore.RED + "Você morreu!")
         print(Fore.RESET)
     pygame.mixer.music.stop()
-
+  
 # Programa principal.
 if __name__ == "__main__":
     main()
