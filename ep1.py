@@ -6,11 +6,11 @@
 # - aluno C: Gabriel Parfan,  gabrielpg1@al.insper.edu.br
 
 import json
+import pygame
 from random import randint
+from random import shuffle
 from colorama import *
 from time import sleep
-import pygame
-from PIL import Image
 
 def carregar_cenarios():
     with open('arquivo_cenarios.py','r') as arquivo_cenarios:
@@ -34,10 +34,8 @@ def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, m
             arma = input("Informe a sua arma: ")
         else:
             arma = input("Você não possui este item na sua mochila, digite outro: ")
-    
-    pygame.init()
-    pygame.display.set_mode((200,100))
-    pygame.mixer.music.load("MusicaEP.mp3")
+
+    pygame.mixer.music.load("FightEffect.mp3")
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(1)
     
@@ -58,6 +56,9 @@ def combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, m
         print()
         print(Fore.GREEN + "Você venceu a luta!")
         print(Fore.RESET)
+        pygame.mixer.music.load("MusicaEP.mp3")
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
     elif vida <= 0:
         game_over = True
     return vida, vida_inimigo, game_over
@@ -96,8 +97,6 @@ def carregar_monstros(i):
     return monstros, nome_inimigo, vida_inimigo, ataque_inimigo
 
 def main():
-    im = Image.open( 'Mapa.png' )
-    im.show() 
         
     pygame.init()
     pygame.display.set_mode((200,100))
@@ -118,6 +117,7 @@ def main():
     print("Digite 'opcao' ou 'opcoes' para ver os comandos disponíveis.")
     print("------------------------------------------------------------")
 
+    solucao_easter_egg = 0
     cenario_anterior = "saguao"
     dinheiro = 0
     game_over = False
@@ -225,8 +225,9 @@ def main():
                     else:
                         if estacionamento_deny == 0:
                             dinheiro += 50
-                            print(Fore.WHITE + "Você vê um carro com o vidro aberto e resolve destrancá-lo...\nPor sorte ninguém te vê e você consegue voltar para o estacionamento com mais 50 dinheiros\n" + Fore.CYAN)                        
-                            print("+50 dinheiros\n" + Fore.RESET)
+                            mochila.append("faca")
+                            print(Fore.WHITE + "Você vê um carro com o vidro aberto e resolve destrancá-lo...\nPor sorte ninguém te vê e você consegue voltar para o estacionamento com mais 50 dinheiros e uma faca!\n" + Fore.CYAN)                        
+                            print("+50 dinheiros\n+1 Faca\n" + Fore.RESET)
                             estacionamento_deny += 1
                         else:
                             if dinheiro >= 75:
@@ -269,19 +270,45 @@ def main():
                     else:
                         nome_cenario_atual = cenario_anterior
                 elif nome_cenario_atual == "hall":
-                    if randint(1,9) < 2:
-                        i = randint(0,3)
+                    if randint(1,9) < 3:
+                        a = [0,1,2,3]
+                        shuffle(a)
+                        i = a[0]
                         monstros, nome_inimigo, vida_inimigo, ataque_inimigo = carregar_monstros(i)
                         vida, vida_inimigo, game_over = combate(nome_inimigo, vida_inimigo, ataque_inimigo, vida, item, game_over, mochila)
                         if vida > 0:
                             dinheiro += 20
                             print(Fore.CYAN + "+20 dinheiro\n" + Fore.RESET)
+                elif nome_cenario_atual == "maquina de snack":
+                    print(Fore.CYAN + "Você está na máquina de snacks, aqui você pode comprar algum snack e recuperar vida por certa quantidade de dinheiro!\n" + Fore.RESET)
+                    print("--- OPÇÕES ---\n* 'snickers' (Custa 30 / Cura 05)\n* 'twix'     (Custa 50 / Cura 10)\n* 'doritos'  (Custa 60 / Cura 12)\n\n" + Fore.CYAN + f"Dinheiro = {dinheiro}\n" + Fore.RESET)
+                    escolha = input("Escolha a sua opção: ")
+                    if escolha != 'snickers' and escolha != 'twix' and escolha != 'doritos':
+                        print("\nA máquina não possui esta opção!")
+                        nome_cenario_atual = "corredor 2 andar"
+                    elif escolha == 'snickers' and dinheiro >= 30:
+                        dinheiro-=30
+                        vida+=5
+                        print(Fore.GREEN + "+5 vida\n" + Fore.RED + "-30 dinheiros")
+                        print(Fore.RESET)
+                        nome_cenario_atual = "corredor 2 andar"
+                    elif escolha == 'twix' and dinheiro >= 50:
+                        dinheiro-=50
+                        vida+=10
+                        print(Fore.GREEN + "+10 vida\n" + Fore.RED + "-50 dinheiros")
+                        print(Fore.RESET)
+                        nome_cenario_atual = "corredor 2 andar"
+                    elif escolha =='doritos' and dinheiro >= 60:
+                        dinheiro-=60
+                        vida+=12
+                        print(Fore.GREEN + "+12 vida\n" + Fore.RED + "-60 dinheiros")
+                        print(Fore.RESET)
+                        nome_cenario_atual = "corredor 2 andar"
+                    else:
+                        print(Fore.RED + "\nVocê não tem dinheiro suficiente para comprar este snack!\n" + Fore.RESET)
+                        nome_cenario_atual = "corredor 2 andar"
                 elif nome_cenario_atual == "auditorio":
-                    if escolha == "pista":
-                        print("Numero do P2, senha do elevador 42")
-                elif nome_cenario_atual == "sala de estudo":
-                    if escolha == "caixa brilhante":
-                        print("Numero do P1")
+                    print(Fore.CYAN + "Você encontrou um papel escrito: Digite no elevador o número '42'" + Fore.RESET)
                 elif nome_cenario_atual == "easter egg":
                     if escolha == "sala da decisao":
                        nome_cenario_atual = "sala da decisao"
@@ -290,18 +317,15 @@ def main():
                            nome_cenario_atual == "olhar dentro da caixa" 
                 elif nome_cenario_atual == "olhar dentro da caixa":
                     solucao_easter_egg = input("Soma do P1 e do P2: ")
-                    print(solucao_easter_egg)
                     if solucao_easter_egg == "500":
+                        print(Fore.CYAN + "\nVocê digitou o número correto e, portanto, a caixa brilhante destruiu toda a faculdade, dando assim, tempo suficiente para você terminar o seu EP!\n" + Fore.RESET)
                         game_over = True
-                           
-                           
-                       
-                
+
     if escolha == 'desistir':
         print(Fore.RED + "Você desistiu de tentar o adiamento, foi embora e pegou DP!")
         print(Fore.RESET)
-    elif solucao_easter_egg == ("500"):
-        print(Fore.YELLOW + "YOU WIN")
+    elif solucao_easter_egg == "500":
+        print(Fore.GREEN + "YOU WIN")
         print(Fore.RESET) 
     else:
         print(Fore.RED + "Você morreu!")
