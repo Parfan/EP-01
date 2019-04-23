@@ -33,24 +33,16 @@
         "descricao": "Voce esta no hall",
         "opcoes": {
             "corredor 1 andar": "Ir para o corredor do primeiro andar",
-            "auditorio": "Ir para o palco",
+            "auditorio": "Ir para o auditorio",
             "escada": "Ir para a escadaria do infinito",
-            "saguao": "Voltar para o saguao",
-            "caixa eletronico 1 andar": "Checar conta bancaria"
-        }
-    },
-    "caixa eletronico 1 andar": {
-        "titulo": "Caixa eletronico",
-        "descricao": "Voce esta no caixa eletronico do primeiro andar",
-        "opcoes": {
-            "hall": "Voltar para o hall"
+            "saguao": "Voltar para o saguao"
         }
     },
     "escada": {
-        "titulo": "Escada no primeiro andar",
-        "descricao": "Voce esta no primeiro andar",
+        "titulo": "Escadaria do infinito",
+        "descricao": "Voce esta na escadaria do infinito",
         "opcoes": {
-            "hall": "Ir para o primeiro andar",
+            "hall": "Ir para o hall no primeiro andar",
             "corredor 2 andar": "Ir para o segundo andar"
         }
     },
@@ -58,24 +50,14 @@
         "titulo": "Auditorio",
         "descricao": "Voce esta no auditorio",
         "opcoes": {
-            "hall": "Voltar para o hall",
-            "pista": "Abrir caixa com a primeira pista"
+            "hall": "Voltar para o hall"
         }
     },
     "biblioteca": {
         "titulo": "Santuario da sabedoria",
-        "descricao": "Voce esta na biblioteca do insper",
+        "descricao": "Voce entrou na biblioteca e encontrou um papel escrito P1 = 350, P2 = 150",
         "opcoes": {
-            "corredor 1 andar": "Voltar para o corredor do primeiro andar",
-            "sala de estudo": "Entrar em uma sala de estudo"
-        }
-    },
-    "sala de estudo": {
-        "titulo": "Sala de estudo",
-        "descricao": "Voce esta na sala de estudo",
-        "opcoes": {
-            "caixa brilhante":"Abrir a caixa no canto da sala",
-            "biblioteca": "Voltar para a biblioteca"
+            "corredor 1 andar": "Voltar para o corredor do primeiro andar"
         }
     },
     "elevador": {
@@ -83,9 +65,7 @@
         "descricao": "Voce entrou no elevador",
         "opcoes": {
             "corredor 1 andar": "Ir para o corredor do primeiro andar",
-            "corredor 2 andar": "Ir para o corredor do segundo andar",
-            "corredor 3 andar": "Ir para o corredor do terceiro andar",
-            "corredor 4 andar": "Ir para o corredor do quarto andar"
+            "corredor 2 andar": "Ir para o corredor do segundo andar"
         }
     },
     "estacionamento": {
@@ -93,7 +73,6 @@
         "descricao": "Voce esta no estacionamento",
         "opcoes": {
             "saguao": "Voltar ao saguao",
-            "tech lab": "Ir para o tech lab",
             "roubar carro": "Tentar roubar um carro"
         }
     },
@@ -102,13 +81,6 @@
         "descricao": "Voce esta tentando roubar um carro!",
         "opcoes": {
             "estacionamento": "Voltar ao estacionamento"
-        }
-    },
-    "tech lab": {
-        "titulo": "Tech Lab",
-        "descricao": "Voce esta no tech lab",
-        "opcoes": {
-            "estacionamento": "Voltar para o estacionamento"
         }
     },
     "corredor 2 andar": {
@@ -122,16 +94,17 @@
     },
     "sala de aula": {
         "titulo": "Sala de aula",
-        "descricao": "Voce entrou na sala de aula",
+        "descricao": "Voce entrou na sala de aula, porem, nada de anormal foi encontrado por aqui!",
         "opcoes": {
-            "corredor 2 andar": "Voltar para o corredor do segundo andar"
+            "corredor 2 andar": "Voltar para o corredor do segundo andar",
+            "falar com o professor": "Pedir adiamento do EP"
         }
     },
     "maquina de snack": {
         "titulo": "Maquina de snacks",
         "descricao": "Deseja comprar algo?",
         "opcoes": {
-            "corredor 2 andar": "Ir para o corredor do segundo andar"
+            "corredor 2 andar": "Voltar ao corredor do segundo andar"
         }
     },
     "easter egg": {
@@ -165,5 +138,10 @@
             "olhar dentro da caixa": "Verificar o que esta brilhando na borda da mesa",
             "corredor 2 andar": "Ir para o corredor do segundo andar"
         }
-    }
+    },
+    "falar com o professor": {
+        "titulo": "Pedir adiamento",
+        "descricao": "Voce foi ate o professor para tentar adiar o EP... Ele nega o seu pedido e de tao furioso, resolveu passar um teste surpresa para todos",
+        "opcoes": {}
+        }
 }
